@@ -13,9 +13,9 @@ use Guzzle\Plugin\Log\LogPlugin;
 
 class Connection {
 
-    private $apiUrl = 'https://start.exactonline.nl/api/v1';
-    private $authUrl = 'https://start.exactonline.nl/api/oauth2/auth';
-    private $tokenUrl = 'https://start.exactonline.nl/api/oauth2/token';
+    private $apiUrl = 'https://start.exactonline.de/api/v1';
+    private $authUrl = 'https://start.exactonline.de/api/oauth2/auth';
+    private $tokenUrl = 'https://start.exactonline.de/api/oauth2/token';
 
     private $exactClientId;
     private $exactClientSecret;
@@ -45,7 +45,7 @@ class Connection {
 
     public function get($url, array $params = [])
     {
-        if ($url !== 'current/Me') $this->addDivisionNumberToApiUrl();
+        if ($url === 'current/Me') $this->resetApiUrl(); else $this->addDivisionNumberToApiUrl();
 
         $request = $this->client()->createRequest('GET', $url);
 
@@ -221,7 +221,11 @@ class Connection {
             $this->division = $me->find()->CurrentDivision;
         }
 
-        $this->client()->setBaseUrl($this->client()->getBaseUrl() . '/' . $this->division);
+		$this->client()->setBaseUrl($this->apiUrl . '/' . $this->division);
+    }
+    public function resetApiUrl()
+    {
+		$this->client()->setBaseUrl($this->apiUrl);
     }
 
     /**
