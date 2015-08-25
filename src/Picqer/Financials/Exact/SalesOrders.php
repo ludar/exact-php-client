@@ -12,6 +12,7 @@ class SalesOrders extends Model
 
     protected $fillable = [
 		'AmountDC',
+		'AmountFC',
         'Division',
         'Currency',
         'OrderedBy',
