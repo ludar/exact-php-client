@@ -1,47 +1,46 @@
-<?php namespace Picqer\Financials\Exact;
+<?php
 
-class SalesOrders extends Model
-{
+namespace Picqer\Financials\Exact;
 
-    use Query\Findable;
-    use Persistance\Storable;
+class SalesOrders extends Model {
 
-    protected $primaryKey = 'OrderID';
+	use Query\Findable;
 
-    protected $salesOrderLines = [ ];
+use Persistance\Storable;
 
-    protected $fillable = [
+	protected $primaryKey = 'OrderID';
+	protected $salesOrderLines = [];
+	protected $fillable = [
 		'AmountDC',
 		'AmountFC',
-        'Division',
-        'Currency',
-        'OrderedBy',
-        'OrderID',
-        'OrderNumber',
-        'Customer',
-        'YourRef',
-        'SalesOrderLines',
-        'Document',
-        'Description',
-        'Status',
-        'PaymentCondition',
-        'Remarks',
-        'Salesperson',
-        'DeliverTo',
-    ];
+		'Division',
+		'Currency',
+		'OrderedBy',
+		'OrderID',
+		'OrderNumber',
+		'Customer',
+		'YourRef',
+		'SalesOrderLines',
+		'Document',
+		'Description',
+		'Status',
+		'PaymentCondition',
+		'Remarks',
+		'Salesperson',
+		'DeliverTo',
+		'WarehouseID',
+	];
 
-	    public function addItem(array $array)
-    {
-        if ( ! isset( $this->attributes['SalesOrderLines'] ) || $this->attributes['SalesOrderLines'] == null) {
-            $this->attributes['SalesOrderLines'] = [ ];
-        }
-        if ( ! isset( $array['LineNumber'] )) {
-            $array['LineNumber'] = count($this->attributes['SalesOrderLines']) + 1;
-        }
-        $this->attributes['SalesOrderLines'][] = $array;
-    }
+	public function addItem(array $array) {
+		if (!isset($this->attributes['SalesOrderLines']) || $this->attributes['SalesOrderLines'] == null) {
+			$this->attributes['SalesOrderLines'] = [];
+		}
+		if (!isset($array['LineNumber'])) {
+			$array['LineNumber'] = count($this->attributes['SalesOrderLines']) + 1;
+		}
+		$this->attributes['SalesOrderLines'][] = $array;
+	}
 
-
-    protected $url = 'salesorder/SalesOrders';
+	protected $url = 'salesorder/SalesOrders';
 
 }
